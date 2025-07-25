@@ -1,0 +1,5 @@
+services:
+  - type: web
+    env: python
+    pythonVersion: 3.11
+    # other settings like startCommand go here
