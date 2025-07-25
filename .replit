@@ -1,0 +1,45 @@
+entrypoint = "main.py"
+modules = ["python-3.10"]
+
+[nix]
+channel = "stable-23_05"
+packages = ["cairo", "catch2", "comic-neue", "coordgenlibs", "eigen", "freetype", "glibcLocales", "inchi", "maeparser", "rapidjson"]
+
+[unitTest]
+language = "python3"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[deployment]
+run = ["python3", "main.py"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[workflows]
+runButton = "Launch"
+
+[[workflows.workflow]]
+name = "App"
+mode = "parallel"
+author = 27366157
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "run = \"python3 app.py\""
+
+[[workflows.workflow]]
+name = "Launch"
+mode = "parallel"
+author = 27366157
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 launch.py"
